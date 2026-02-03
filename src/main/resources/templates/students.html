@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+</head>
+<body>
+<a href="/students">Show All Students</a>
+<a href="/student/add">Add Student</a>
+
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Picture</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>Skills</th>
+    </tr>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.id}"></td>
+        <td>
+            <img th:if="${student.getPictureName() != null && !student.getPictureName().equals('')}"
+                 th:src="@{/image/get(picture=${student.pictureName})}" width="50">
+            <img th:if="${student.getPictureName() == null || student.getPictureName().equals('')}"
+                 th:src="@{/images/img.png}" width="50">
+        </td>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.surname}"></td>
+        <td th:text="${student.email}"></td>
+        <td>
+            <a th:if="${student.course != null}"
+               th:href="@{/students(courseId=${student.course.id})}"
+               th:text="${student.course.name}">
+            </a>
+            <span th:if="${student.course == null}">
+                No Course
+            </span>
+        </td>
+        <td>
+            <a th:each="skill,s : ${student.getSkills()}"
+               th:text="${s.last ? skill.name : skill.name + ', ' }"
+               th:href="@{/students(skillId=${skill.id})}">
+                ></a>
+        </td>
+
+    </tr>
+</table>
+</body>
+</html>

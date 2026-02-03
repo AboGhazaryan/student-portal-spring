@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+<a href="/students">Students</a> <br>
+<a href="/courses">Courses</a>
+<span th:if="${userName} != null">Welcome <span th:text="${userName}"></span></span>
+<a th:if="${userName} != null" href="/logout">Logout</a><br>
+<a th:if="${userName} == null" href="/login">Login</a>
+</body>
+</html>
