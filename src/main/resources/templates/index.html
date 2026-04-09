@@ -7,8 +7,10 @@
 <body>
 <a href="/students">Students</a> <br>
 <a href="/courses">Courses</a>
-<span th:if="${userName} != null">Welcome <span th:text="${userName}"></span></span>
-<a th:if="${userName} != null" href="/logout">Logout</a><br>
-<a th:if="${userName} == null" href="/login">Login</a>
+
+<span th:if="${user} != null">Welcome <span th:text="${user.getName() + ' ' + user.getSurname()}"></span></span>
+<a th:if="${user} != null" href="/logout">Logout</a>
+<a th:if="${user} == null" href="/login">Login</a>
+<a th:if="${user} == null" href="/registerPage">Register</a>
 </body>
 </html>

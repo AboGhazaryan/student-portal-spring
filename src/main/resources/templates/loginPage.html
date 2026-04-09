@@ -5,6 +5,10 @@
     <title>Login</title>
 </head>
 <body>
+<sspan th:if="${msg} != null">
+    <span style="color: blue" th:text="${msg}"></span>
+</sspan>
+
 Login:
 <form action="/login" method="post">
     <input type="text" name="username" placeholder="Username">

@@ -1,0 +1,111 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="S-1" author="A.Ghazaryan">
+        <createTable tableName="user">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar (255)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="ENUM('USER','ADMIN')" defaultValue="USER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="S-2" author="A.Ghazaryan">
+        <createTable tableName="course">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="double">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="S-3" author="A.Ghazaryan">
+        <createTable tableName="student">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="course_id" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="picture_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="student"
+                                 baseColumnNames="course_id"
+                                 constraintName="fk_student_course"
+                                 referencedTableName="course"
+                                 referencedColumnNames="id"
+                                 onDelete="SET NULL"/>
+
+    </changeSet>
+
+    <changeSet id="S-4" author="A.Ghazaryan">
+        <createTable tableName="skill">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="S-5" author="A.Ghazaryan">
+        <createTable tableName="student_skill">
+            <column name="skill_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="student_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="student_skill" 
+                       columnNames="skill_id,student_id" 
+                       constraintName="pk_student_skill"/>
+        
+        <addForeignKeyConstraint baseTableName="student_skill"
+                                 baseColumnNames="skill_id"
+                                 constraintName="fk_student_skill_skill"
+                                 referencedTableName="skill"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint baseTableName="student_skill"
+                                 baseColumnNames="student_id"
+                                 constraintName="fk_student_student_student"
+                                 referencedTableName="student"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>

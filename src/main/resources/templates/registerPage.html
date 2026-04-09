@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+</head>
+<body>
+<span th:if="${msg} != null">
+    <span style="color: red" th:text="${msg}"></span>
+</span>
+Register
+<form action="/register" method="POST">
+    Name: <input type="text" name="name"><br>
+    Surname: <input type="text" name="surname"><br>
+    Username: <input type="text" name="username"><br>
+    Password: <input type="password" name="password"><br>
+    Role: <select name="role">
+    <option value="ADMIN">Admin</option>
+    <option value="USER">User</option>
+</select><br>
+    <input type="submit" value="Register">
+</form>
+
+</body>
+</html>
